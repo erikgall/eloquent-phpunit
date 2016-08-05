@@ -5,6 +5,7 @@ namespace EGALL\EloquentPHPUnit;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Relationship test helper trait.
@@ -41,6 +42,20 @@ trait RelationshipTestHelper
         $method = $name ?: $this->getRelationshipMethodName($model);
 
         return $this->assertHasRelationship(BelongsTo::class, $model, $method);
+    }
+
+    /**
+     * Assert the model has a belongs to many relationship.
+     *
+     * @param string $class
+     * @param null $method
+     * @return $this
+     */
+    public function belongsToMany($model, $name = null)
+    {
+        $method = $name ?: $this->getRelationshipMethodName($model, false);
+
+        return $this->assertHasRelationship(BelongsToMany::class, $model, $name);
     }
 
     /**
