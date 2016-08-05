@@ -102,7 +102,7 @@ class EloquentTestCase extends LaravelTestCase
      */
     protected function getBootstrapFilePath()
     {
-        return __DIR__.'/../../../bootstrap/app.php';
+        return __DIR__.'/../../../../bootstrap/app.php';
     }
 
     /**
