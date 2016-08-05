@@ -5,6 +5,7 @@ namespace EGALL\EloquentPHPUnit;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -85,6 +86,20 @@ trait RelationshipTestHelper
         $this->assertEquals($this->subject->$method()->getMorphType(), ($morphTo ?: $method).'_type');
 
         return $this;
+    }
+
+    /**
+     * Assert the model has a morph many relationship.
+     * 
+     * @param  string $method
+     * @param  string|null
+     * @return $this
+     */
+    public function morphMany($model, $name = null)
+    {
+        return $this->assertHasRelationship(
+            MorphMany::class, $model, $name ?: $this->getRelationshipMethodName($model, false)
+        );
     }
 
     /**
