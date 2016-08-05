@@ -56,6 +56,20 @@ class EloquentTestCase extends LaravelTestCase
     }
 
     /**
+     * Reset the table to a new testable table.
+     * 
+     * @param  string $tableName
+     * @return $this
+     */
+    public function resetTable($tableName)
+    {
+        $this->tableName = $tableName;
+        $this->data['table'] = null;
+
+        return $this;
+    }
+
+    /**
      * Set the test data.
      * 
      * @before
