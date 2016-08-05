@@ -1,0 +1,20 @@
+{
+    "name": "erikgall/eloquent-phpunit",
+    "description": "Test Eloquent models, database tables, relationships, etc. using PHPUnit.",
+    "authors": [
+        {
+            "name": "Erik Galloway",
+            "email": "erik@mybarnapp.com"
+        }
+    ],
+    "require": {
+    	"php": ">=7.0.0",
+    	"laravel/framework": "5.3.*-dev",
+        "doctrine/dbal": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "EGALL\\EloquentPHPUnit\\": "src/"
+        }
+    }
+}
