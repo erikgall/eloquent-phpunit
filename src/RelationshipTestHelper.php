@@ -55,7 +55,7 @@ trait RelationshipTestHelper
     {
         $method = $name ?: $this->getRelationshipMethodName($model, false);
 
-        return $this->assertHasRelationship(BelongsToMany::class, $model, $name);
+        return $this->assertHasRelationship(BelongsToMany::class, $model, $method);
     }
 
     /**
