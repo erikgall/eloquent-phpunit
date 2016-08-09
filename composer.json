@@ -9,7 +9,7 @@
     ],
     "require": {
     	"php": ">=7.0.0",
-    	"laravel/framework": "5.3.*-dev",
+    	"laravel/framework": "^5.2|^5.3",
         "doctrine/dbal": "^2.5"
     },
     "autoload": {
