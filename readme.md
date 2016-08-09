@@ -56,8 +56,8 @@ Class UserModelTest extends \EGALL\EloquentPHPUnit\EloquentTestCase {
 		$this->table->column('password')->string()->notNullable();
 		$this->table->column('dob')->date()->nullable();
 		$this->table->column('avatar_id')->integer()->foreign('images', 'id', $onUpdate = 'cascade', $onDelete = 'cascade');
-		$this->table->column('is_verified')->boolean()->default(false);
-		$this->table->column('is_admin')->boolean()->default(false);
+		$this->table->column('is_verified')->boolean()->defaults(false);
+		$this->table->column('is_admin')->boolean()->defaults(false);
 		$this->table->column('verification_sent_at')->dateTime()->nullable();
 		$this->table->column('invite_sent_at')->dateTime()->nullable();
 		$this->table->column('api_token')->string()->index();
@@ -71,14 +71,16 @@ Class UserModelTest extends \EGALL\EloquentPHPUnit\EloquentTestCase {
 	public function testModelProperties() {
 		$this->hasFillable('name', 'email', 'password', 'dob', 'avatar_id')
 			 ->hasHidden('password', 'remember_token')
-			 ->hasCasts('is_verified', 'boolean') // or
+			 ->hasCasts('is_verified', 'boolean') 
+			 // or
 			 ->hasCasts(['is_verified' => 'boolean', 'is_admin' => 'boolean'])
 			 ->hasDates('verification_sent_at', 'invite_sent_at')
-			 ->belongsTo(Image::class) // if method name = 'image()' or
+			 ->belongsTo(Image::class) 
+			 // if method name = 'image()' or
 			 ->belongsTo(Image::class, $customMethod = 'avatar')
 			 ->hasMany(Profile::class)
-			 ->morphsTo($method = 'slug', $morphTo = 'sluggable') // or
-			 // example below assumes the db fields are: 'sluggable_id' and 'sluggable_type'
+			 ->morphsTo($method = 'slug', $morphTo = 'sluggable') 
+			 // or: example below assumes the db fields are: 'sluggable_id' and 'sluggable_type'
 			 ->morphsTo('sluggable'); 
 	}
 }
