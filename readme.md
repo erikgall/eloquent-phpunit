@@ -97,12 +97,17 @@ Class UserModelTest extends \EGALL\EloquentPHPUnit\EloquentTestCase {
 ## History
 
 - Initial Release: 8/5/2016
+- v1.0.3 Released: 8/9/2016
+
+## Projects using Eloquent-PHPUnit
+
+- [Canvas ★543](https://github.com/austintoddj/canvas): A minimal blogging application built on top of Laravel 5 by @austintoddj
 
 ## Credits
 
 - [Erik Galloway](https://github.com/erikgall)
-- [Laravel Framework](https://laravel.com)
+
 
 ## License
 
-TODO: Write license
+Eloquent-PHPUnit is an open-sourced software licensed under the [MIT license](https://github.com/erikgall/eloquent-phpunit/blob/master/LICENSE).
