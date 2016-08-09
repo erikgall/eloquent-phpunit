@@ -100,7 +100,7 @@ class Column
     public function foreign($table, $column = 'id', $onUpdate = 'cascade', $onDelete = 'cascade')
     {
         $name = $this->getIndexName('foreign');
-        $this->context->assertTrue($this->table->hasForeignKey($name));
+        $this->context->assertTrue($this->table->hasForeignKey($name), "The foreign key {$name} does not exist.");
         
         $key = $this->table->getForeignKey($name);
         $onUpdate && $this->context->assertEquals(strtoupper($onUpdate), $key->onUpdate());
