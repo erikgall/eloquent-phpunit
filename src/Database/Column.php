@@ -99,9 +99,15 @@ class Column
      */
     public function foreign($table, $column = 'id', $onUpdate = 'cascade', $onDelete = 'cascade')
     {
+        if (DB::connection() instanceof \Illuminate\Database\SQLiteConnection) {
+            $this->context->markTestIncomplete('Foreign keys cannot be tested with a SQLite database.');
+
+            return $this;
+        }
+
         $name = $this->getIndexName('foreign');
         $this->context->assertTrue($this->table->hasForeignKey($name), "The foreign key {$name} does not exist.");
-        
+
         $key = $this->table->getForeignKey($name);
         $onUpdate && $this->context->assertEquals(strtoupper($onUpdate), $key->onUpdate());
         $onDelete && $this->context->assertEquals(strtoupper($onDelete), $key->onDelete());
@@ -109,7 +115,7 @@ class Column
         $this->context->assertEquals($table, $key->getForeignTableName());
         $this->context->assertContains($column, $key->getForeignColumns());
 
-        return $this;        
+        return $this;
     }
 
     /**
@@ -133,12 +139,11 @@ class Column
      * @param  mixed
      * @return $this
      */
-    public function default($value)
+    public function defaults($value)
     {
         $this->context->assertEquals($value, $this->get('default'), "The default value ({$this->get('default')}) does not equal {$value}");
 
         return $this;
-        
     }
 
     /**
@@ -161,6 +166,7 @@ class Column
     public function increments()
     {
         $this->context->assertTrue($this->get('autoincrement'), "The column {$this->name} does not auto-increment");
+
         return $this->primary();
     }
 
@@ -236,13 +242,13 @@ class Column
     {
         $noPrimaryMessage = "The table {$this->table->getName()} does not have a primary key.";
         $this->context->assertTrue($this->table->hasPrimaryKey(), $noPrimaryMessage);
-        
+
         $key = $this->table->getPrimaryKey();
 
         $this->context->assertTrue(in_array($this->name, $key->getColumns()), "The column {$this->name} is not a primary key.");
         $this->context->assertTrue($key->isPrimary());
         $this->context->assertTrue($key->isUnique());
-        
+
         return $this;
     }
 
@@ -274,18 +280,16 @@ class Column
     public function unique()
     {
         $key = $this->getIndexName('unique');
-        
+
         $notSetMessage = "The unique index {$key} is not an index on the table {$this->table->getName()}";
         $notUniqueMessage = "The column {$this->name} is not unique in the database.";
 
         $this->context->assertTrue(array_key_exists($key, $this->table->getIndexes()), $notSetMessage);
         $this->context->assertTrue($this->table->getIndexes()[$key]->isUnique(), $notUniqueMessage);
-
     }
 
     protected function getIndexName($suffix = 'index')
     {
         return "{$this->table->getName()}_{$this->name}_{$suffix}";
-
     }
 }
