@@ -2,6 +2,7 @@
 
 namespace EGALL\EloquentPHPUnit\Database;
 
+use DB;
 use Doctrine\DBAL\Types\DateType;
 use Doctrine\DBAL\Types\TextType;
 use Doctrine\DBAL\Types\StringType;
