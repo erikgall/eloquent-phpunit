@@ -39,7 +39,7 @@ class Table
      * @param EloquentTestCase $context
      * @param string           $name
      */
-    public function __construct($context, string $name)
+    public function __construct($context, $name)
     {
         $this->context = $context;
         $this->name = $name;
