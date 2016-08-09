@@ -17,7 +17,7 @@ trait ModelTestHelper
      * @param string $array
      * @return $this
      */
-    public function hasAttributes(array $expected, array $actual, string $array)
+    public function hasAttributes(array $expected, array $actual, $array)
     {
         foreach ($expected as $field) {
             $this->assertTrue(

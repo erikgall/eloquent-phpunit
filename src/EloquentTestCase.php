@@ -27,11 +27,11 @@ class EloquentTestCase extends LaravelTestCase
      * @var array
      */
     protected $data = [
-        'casts'        => null,
-        'dates'        => null,
-        'fillable'    => null,
+        'casts'     => null,
+        'dates'     => null,
+        'fillable'  => null,
         'hidden'    => null,
-        'table'        => null,
+        'table'     => null,
     ];
 
     /**

@@ -226,7 +226,7 @@ class Column
      * 
      * @return $this
      */
-    public function ofType(string $type)
+    public function ofType($type)
     {
         $this->context->assertInstanceOf($type, $this->get('type'), "The column of type: {$this->get('type')} and not of type {$type}");
 
