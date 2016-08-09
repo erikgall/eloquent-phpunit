@@ -52,7 +52,7 @@ trait DatabaseTestHelper
             return $this->seeders;
         }
 
-        return [$this->defaultSeeder];
+        return [$this->getDefaultSeeder()];
     }
 
     /**
