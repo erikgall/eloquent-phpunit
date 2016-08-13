@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d8a64f0d48cfb43a1a84a9af6ef47b1a",
+    "hash": "8bd63d87746d11c9b8493c53835a122d",
     "content-hash": "3a0596e146cca4c0c07b58bf68589e80",
     "packages": [
         {
@@ -710,16 +710,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.2.42",
+            "version": "v5.2.43",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "d1bf46f359d2ede2d4ef847fb79d3758d868f2b7"
+                "reference": "5490b8f00564bb60839002f86828e27edd1e5610"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/d1bf46f359d2ede2d4ef847fb79d3758d868f2b7",
-                "reference": "d1bf46f359d2ede2d4ef847fb79d3758d868f2b7",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/5490b8f00564bb60839002f86828e27edd1e5610",
+                "reference": "5490b8f00564bb60839002f86828e27edd1e5610",
                 "shasum": ""
             },
             "require": {
@@ -836,20 +836,20 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-08-08 13:39:44"
+            "time": "2016-08-10 12:23:59"
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.26",
+            "version": "1.0.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "fb3b30dca320b36931ea878fea17ebe136fba1b0"
+                "reference": "50e2045ed70a7e75a5e30bc3662904f3b67af8a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/fb3b30dca320b36931ea878fea17ebe136fba1b0",
-                "reference": "fb3b30dca320b36931ea878fea17ebe136fba1b0",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/50e2045ed70a7e75a5e30bc3662904f3b67af8a9",
+                "reference": "50e2045ed70a7e75a5e30bc3662904f3b67af8a9",
                 "shasum": ""
             },
             "require": {
@@ -919,7 +919,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2016-08-03 09:49:11"
+            "time": "2016-08-10 08:55:11"
         },
         {
             "name": "monolog/monolog",

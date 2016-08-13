@@ -1,6 +1,7 @@
 {
     "name": "erikgall/eloquent-phpunit",
     "description": "Test Eloquent models, database tables, relationships, etc. using PHPUnit.",
+    "keywords": ["laravel", "eloquent", "model", "phpunit", "database-testing", "eloquent-test"],
     "authors": [
         {
             "name": "Erik Galloway",
