@@ -7,14 +7,15 @@ use Schema;
 
 /**
  * Database table test case class.
- * 
+ *
  * @author Erik Galloway <erik@mybarnapp.com>
  */
 class Table
 {
+
     /**
      * The database table instance.
-     * 
+     *
      * @var array
      */
     public $table;
@@ -35,33 +36,37 @@ class Table
 
     /**
      * Table test case constructor.
-     * 
+     *
      * @param EloquentTestCase $context
-     * @param string           $name
+     * @param string $name
      */
     public function __construct($context, $name)
     {
+
         $this->context = $context;
         $this->name = $name;
     }
 
     /**
-     * Get a column test case intance.
-     * 
-     * @return TableColumnTestCase
+     * Get a column test case instance.
+     *
+     * @param string $column
+     * @return \EGALL\EloquentPHPUnit\Database\TableColumnTestCase
      */
     public function column($column)
     {
+
         return $this->tableColumn($column)->exists();
     }
 
     /**
      * Assert that the table exists in the database.
-     * 
+     *
      * @return $this
      */
     public function exists()
     {
+
         $this->context->assertTrue(Schema::hasTable($this->name), "The table {$this->name} does not exist.");
 
         return $this;
@@ -69,21 +74,24 @@ class Table
 
     /**
      * Get the table name.
-     * 
+     *
      * @return string
      */
     public function getName()
     {
+
         return $this->table->getName();
+
     }
 
     /**
      * Assert the table has timestamp columns.
-     * 
+     *
      * @return $this
      */
     public function hasTimestamps()
     {
+
         $this->column('created_at')->dateTime()->nullable();
         $this->column('updated_at')->dateTime()->nullable();
 
@@ -92,13 +100,13 @@ class Table
 
     /**
      * Get a column's test case instance.
-     * 
-     * @param string $name
      *
-     * @return TableColumnTestCase
+     * @param $column
+     * @return \EGALL\EloquentPHPUnit\Database\TableColumnTestCase
      */
     protected function tableColumn($column)
     {
+
         if (is_null($this->table)) {
             $this->setTable();
         }
@@ -111,6 +119,7 @@ class Table
      */
     protected function setTable()
     {
+
         $this->table = DB::getDoctrineSchemaManager()->listTableDetails($this->name);
     }
 }
