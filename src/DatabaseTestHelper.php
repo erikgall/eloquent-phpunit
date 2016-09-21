@@ -7,12 +7,10 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 /**
  * PHPUnit/Laravel database test helper.
  *
- * @package \EGALL\EloquentPHPUnit
  * @author Erik Galloway <erik@mybarnapp.com>
  */
 trait DatabaseTestHelper
 {
-
     use DatabaseTransactions;
 
     /**
@@ -22,13 +20,10 @@ trait DatabaseTestHelper
      */
     public function runDatabaseMigrations()
     {
-
         $this->artisan('migrate');
 
         $this->beforeApplicationDestroyed(function () {
-
             $this->artisan('migrate:reset');
-
         });
 
         return $this;
@@ -41,7 +36,6 @@ trait DatabaseTestHelper
      */
     protected function getDefaultSeeder()
     {
-
         if (property_exists($this, 'defaultSeeder')) {
             return $this->defaultSeeder;
         }
@@ -56,7 +50,6 @@ trait DatabaseTestHelper
      */
     protected function getSeeders()
     {
-
         if (property_exists($this, 'seeders')) {
             return $this->seeders;
         }
@@ -71,11 +64,9 @@ trait DatabaseTestHelper
      */
     protected function runDatabaseSeeders()
     {
-
         foreach ($this->getSeeders() as $seeder) {
             $this->seed($seeder);
         }
-        
     }
 
     /**
@@ -85,11 +76,9 @@ trait DatabaseTestHelper
      */
     protected function setUp()
     {
-
         parent::setUp();
 
         $this->setUpDatabase();
-
     }
 
     /**
@@ -99,7 +88,6 @@ trait DatabaseTestHelper
      */
     protected function seedDatabase()
     {
-
         if ($this->shouldSeedDatabase()) {
             $this->runDatabaseSeeders();
         }
@@ -112,9 +100,7 @@ trait DatabaseTestHelper
      */
     protected function setUpDatabase()
     {
-
         $this->runDatabaseMigrations()->seedDatabase();
-
     }
 
     /**
@@ -124,7 +110,6 @@ trait DatabaseTestHelper
      */
     protected function shouldSeedDatabase()
     {
-
         if (property_exists($this, 'seedDatabase')) {
             return $this->seedDatabase;
         }

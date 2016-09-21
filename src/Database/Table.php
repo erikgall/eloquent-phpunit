@@ -12,11 +12,10 @@ use Schema;
  */
 class Table
 {
-
     /**
      * The database table instance.
      *
-     * @var array
+     * @var \Doctrine\DBAL\Schema\Table
      */
     public $table;
 
@@ -42,7 +41,6 @@ class Table
      */
     public function __construct($context, $name)
     {
-
         $this->context = $context;
         $this->name = $name;
     }
@@ -55,7 +53,6 @@ class Table
      */
     public function column($column)
     {
-
         return $this->tableColumn($column)->exists();
     }
 
@@ -66,7 +63,6 @@ class Table
      */
     public function exists()
     {
-
         $this->context->assertTrue(Schema::hasTable($this->name), "The table {$this->name} does not exist.");
 
         return $this;
@@ -79,9 +75,7 @@ class Table
      */
     public function getName()
     {
-
         return $this->table->getName();
-
     }
 
     /**
@@ -91,7 +85,6 @@ class Table
      */
     public function hasTimestamps()
     {
-
         $this->column('created_at')->dateTime()->nullable();
         $this->column('updated_at')->dateTime()->nullable();
 
@@ -106,7 +99,6 @@ class Table
      */
     protected function tableColumn($column)
     {
-
         if (is_null($this->table)) {
             $this->setTable();
         }
@@ -119,7 +111,6 @@ class Table
      */
     protected function setTable()
     {
-
         $this->table = DB::getDoctrineSchemaManager()->listTableDetails($this->name);
     }
 }

@@ -8,12 +8,10 @@ use Illuminate\Foundation\Testing\TestCase as LaravelTestCase;
 /**
  * Eloquent PhpUnit test case.
  *
- * @package \EGALL\EloquentPHPUnit
  * @author Erik Galloway <erik@mybarnapp.com>
  */
 class EloquentTestCase extends LaravelTestCase
 {
-
     use DatabaseTestHelper, ModelTestHelper, RelationshipTestHelper;
 
     /**
@@ -50,7 +48,6 @@ class EloquentTestCase extends LaravelTestCase
      */
     public function createApplication()
     {
-
         $app = require $this->getBootstrapFilePath();
 
         $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
@@ -66,7 +63,6 @@ class EloquentTestCase extends LaravelTestCase
      */
     public function resetTable($tableName)
     {
-
         $this->tableName = $tableName;
 
         $this->data['table'] = null;
@@ -82,11 +78,9 @@ class EloquentTestCase extends LaravelTestCase
      */
     public function setUpEloquentModel()
     {
-
         $this->subject = new $this->model();
 
         $this->setTable();
-
     }
 
     /**
@@ -96,7 +90,6 @@ class EloquentTestCase extends LaravelTestCase
      */
     public function table()
     {
-
         if (is_null($this->data['table'])) {
             $this->data['table'] = (new Table($this, $this->tableName))->exists();
         }
@@ -112,7 +105,6 @@ class EloquentTestCase extends LaravelTestCase
      */
     public function __get($key)
     {
-
         if (array_key_exists($key, $this->data)) {
             return $this->getKey($key);
         } elseif (property_exists($this, $key)) {
@@ -127,8 +119,7 @@ class EloquentTestCase extends LaravelTestCase
      */
     protected function getBootstrapFilePath()
     {
-
-        return __DIR__ . '/../../../../bootstrap/app.php';
+        return __DIR__.'/../../../../bootstrap/app.php';
     }
 
     /**
@@ -139,7 +130,6 @@ class EloquentTestCase extends LaravelTestCase
      */
     protected function getKey($key)
     {
-
         if (method_exists($this, $key)) {
             return $this->$key();
         }
@@ -154,7 +144,6 @@ class EloquentTestCase extends LaravelTestCase
      */
     protected function setTable()
     {
-
         if (!property_exists($this, 'tableName')) {
             $this->tableName = $this->subject->getTable();
         }

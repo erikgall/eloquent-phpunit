@@ -9,7 +9,6 @@ namespace EGALL\EloquentPHPUnit;
  */
 trait ModelTestHelper
 {
-
     /**
      * Assert that fields exist with in an array.
      *
@@ -20,7 +19,6 @@ trait ModelTestHelper
      */
     public function hasAttributes(array $expected, array $actual, $array)
     {
-
         foreach ($expected as $field) {
             $this->assertTrue(
                 in_array($field, $actual), "The {$field} attribute was not found in the {$array} array"
@@ -39,7 +37,6 @@ trait ModelTestHelper
      */
     public function hasCasts()
     {
-
         if (count($args = func_get_args()) == 2) {
             $casts = [$args[0] => $args[1]];
         } elseif (is_array($args[0])) {
@@ -63,7 +60,6 @@ trait ModelTestHelper
      */
     public function hasDates($dates = [], $timestamps = true)
     {
-
         if (func_num_args() > 2) {
             $dates = func_get_args();
             $timestamps = true;
@@ -85,7 +81,6 @@ trait ModelTestHelper
      */
     public function hasFillable()
     {
-
         $fields = func_get_args();
 
         if (count($fields) == 1) {
@@ -102,7 +97,6 @@ trait ModelTestHelper
      */
     public function hasHidden()
     {
-
         $fields = func_get_args();
         if (count($fields) == 1) {
             $fields = is_array($fields[0]) ? $fields[0] : (array) $fields[0];
@@ -118,9 +112,7 @@ trait ModelTestHelper
      */
     protected function casts()
     {
-
         return $this->dataKey('casts');
-
     }
 
     /**
@@ -130,9 +122,7 @@ trait ModelTestHelper
      */
     protected function dates()
     {
-
         return $this->dataKey('dates');
-
     }
 
     /**
@@ -143,17 +133,13 @@ trait ModelTestHelper
      */
     protected function dataKey($key)
     {
-
         if ($this->keyNeedsSet($key)) {
-
-            $method = 'get' . ucfirst($key);
+            $method = 'get'.ucfirst($key);
 
             $this->data[$key] = $this->subject->$method();
-
         }
 
         return $this->data[$key];
-
     }
 
     /**
@@ -163,9 +149,7 @@ trait ModelTestHelper
      */
     protected function fillable()
     {
-
         return $this->dataKey('fillable');
-
     }
 
     /**
@@ -175,9 +159,7 @@ trait ModelTestHelper
      */
     protected function hidden()
     {
-
         return $this->dataKey('hidden');
-
     }
 
     /**
@@ -188,8 +170,6 @@ trait ModelTestHelper
      */
     protected function keyNeedsSet($key)
     {
-
         return is_null($this->data[$key]);
-
     }
 }
