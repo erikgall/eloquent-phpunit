@@ -34,7 +34,7 @@ class Column
     /**
      * The table test case instance.
      *
-     * @var TableTestCase
+     * @var \Doctrine\DBAL\Schema\Table
      */
     protected $table;
 
@@ -126,7 +126,9 @@ class Column
      */
     public function defaults($value)
     {
-        $this->context->assertEquals($value, $this->get('default'), "The default value ({$this->get('default')}) does not equal {$value}");
+        $this->context->assertEquals(
+            $value, $this->get('default'), "The default value ({$this->get('default')}) does not equal {$value}"
+        );
 
         return $this;
     }
@@ -138,7 +140,9 @@ class Column
      */
     public function exists()
     {
-        $this->context->assertTrue($this->table->hasColumn($this->name), "The table column `{$this->name}` does not exist.");
+        $this->context->assertTrue(
+            $this->table->hasColumn($this->name), "The table column `{$this->name}` does not exist."
+        );
 
         return $this;
     }
@@ -150,8 +154,9 @@ class Column
      */
     public function increments()
     {
-        $this->integer();
-        $this->context->assertTrue($this->get('autoincrement'), "The column {$this->name} does not auto-increment");
+        $this->integer()->context->assertTrue(
+            $this->get('autoincrement'), "The column {$this->name} is not auto-incremented."
+        );
 
         return $this->primary();
     }
@@ -175,36 +180,15 @@ class Column
     }
 
     /**
-     * Assert that the column is not nullable.
-     * 
-     * @return $this
-     */
-    public function notNullable()
-    {
-        $this->context->assertTrue($this->get('notnull'), "The table column `{$this->name}` is nullable.");
-
-        return $this;
-    }
-    /**
-     * Test that the column is nullable.
-     * 
-     * @return $this
-     */
-    public function nullable()
-    {
-        $this->context->assertTrue(!$this->get('notnull'), "The table column `{$this->name}` is not nullable");
-
-        return $this;
-    }
-
-    /**
      * Assert a column is of a certain type.
      * 
      * @return $this
      */
     public function ofType($type)
     {
-        $this->context->assertInstanceOf($type, $this->get('type'), "The column of type: {$this->get('type')} and not of type {$type}");
+        $this->context->assertInstanceOf(
+            $type, $this->get('type'), "The {$this->name} column is not of type {$type}"
+        );
 
         return $this;
     }
@@ -216,9 +200,7 @@ class Column
      */
     public function primary()
     {
-        $this->tableHasPrimaryKey();
-
-        $key = $this->table->getPrimaryKey();
+        $key = $this->tableHasPrimary()->getPrimaryKey();
 
         $this->context->assertTrue(
             in_array($this->name, $key->getColumns()), "The column {$this->name} is not a primary key."
@@ -243,23 +225,53 @@ class Column
     public function __call($method, $args)
     {
         if (method_exists($this, $method)) {
-            $this->$method($args);
+            return $this->$method($args);
         }
 
+        return $this->assertColumn($method, $args);
+    }
+
+    /**
+     * Assert the column is nullable.
+     *
+     * @param bool $negate
+     * @return $this
+     */
+    protected function assertNullable($negate = false)
+    {
+        if ($negate) {
+            $this->context->assertTrue($this->get('notnull'),  "The table column `{$this->name}` is nullable");
+        } else {
+            $this->context->assertFalse($this->get('notnull'),  "The table column `{$this->name}` is not nullable");
+        }
+
+        return $this;
+    }
+
+    /**
+     * Call a column assertion method.
+     *
+     * @param string $method
+     * @param array $args
+     * @return $this
+     */
+    protected function assertColumn($method, $args)
+    {
         if (array_key_exists($method, $this->types)) {
             return $this->ofType($this->types[$method]);
         }
 
-        if (str_contains($method, 'default')) {
+        if (str_contains($method, ['default', 'Default'])) {
             return $this->defaults($args[0]);
         }
 
         if (str_contains($method, ['null', 'Null'])) {
-            return $this->callNullable($method);
+            return $this->assertNullable(str_contains($method, 'not'));
         }
 
-        throw new \Exception("The method {$method} does not exist.");
+        throw new \Exception("The database table column assertion {$method} does not exist.");
     }
+
     /**
      * Assert a key is a unique index.
      *
@@ -274,19 +286,6 @@ class Column
     }
 
     /**
-     * Call the notNullable or nullable method.
-     *
-     * @param string $method
-     * @return $this
-     */
-    protected function callNullable($method)
-    {
-        $nullable = str_contains($method, 'not') ? 'notNullable' : 'nullable';
-
-        return $this->$nullable();
-    }
-
-    /**
      * Get the column's index key/name.
      *
      * @param string $suffix
@@ -298,26 +297,17 @@ class Column
     }
 
     /**
-     * Get the column type assertion failure message.
-     *
-     * @param string $type
-     * @return string
-     */
-    protected function getTypeMessage($type)
-    {
-        return "The {$this->name} column is expected to be of type {$type} but is of type {$this->get('type')}";
-    }
-
-    /**
      * Assert the table has a primary key.
      *
-     * @param  $table
-     * @return void
+     * @param \Doctrine\DBAL\Schema\Table $table
+     * @return $this
      */
-    protected function tableHasPrimaryKey()
+    protected function tableHasPrimary()
     {
         $this->context->assertTrue(
             $this->table->hasPrimaryKey(), "The table {$this->table->getName()} does not have a primary key."
         );
+
+        return $this->table;
     }
 }
