@@ -150,6 +150,7 @@ class Column
      */
     public function increments()
     {
+        $this->integer();
         $this->context->assertTrue($this->get('autoincrement'), "The column {$this->name} does not auto-increment");
 
         return $this->primary();
