@@ -136,6 +136,44 @@ Assert that the table has timestamp columns.
 
 --- 
 
+##### resetTable($tableName)
+
+Using this method it is possible to test multiple tables in one test class. 
+
+
+**Usage:**
+
+The usage code below is using a user/user-roles, example. The relationship is as follows: A user can have many role and a role can have many users (many-to-many). In eloquent, we would describe this relationship as a user `belongsToMany` roles through the user_role table and vice-versa. 
+
+```php
+
+	protected $model = 'App\Role';
+
+
+	public function testDatabase() {
+
+		// We are testing the roles table below
+		$this->table->column('id')->increments();
+        $this->table->column('name')->string()->notNull()->unique();
+        $this->table->column('label')->string()->notNull();
+        $this->table->hasTimestamps();
+
+        // To switch to the user_role table we must reset the table.
+        // You can method chain off of the resetTable() method as well.
+        $this->resetTable('user_role');
+
+        // Begin testing user_role table like normal.
+        $this->table->column('role_id')->integer()->primary()->foreign('roles');
+        $this->table->column('user_id')->integer()->primary()->foreign('roles');
+        $this->table->hasTimestamps();
+
+
+	}
+```
+
+**Returns:** `EGALL\EloquentPHPUnit\EloquentTestCase` / `$this`
+
+---
 ### Model Testing Methods
 
 // TODO
