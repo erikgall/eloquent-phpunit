@@ -20,6 +20,10 @@ This package was inspired by the Ruby on Rails world and the testing framework R
 9. [Author](#author)
 10. [License](#license)
 
+![Test a database table](docs/database-test-method.png "Test a database table.")
+
+![Test an eloquent model's attributes/relationships](docs/model-test-method.png "Test an eloquent model's attributes/relationships.")
+
 ## What can be tested
 
 - Casted attribute array
