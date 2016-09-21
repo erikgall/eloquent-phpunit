@@ -140,7 +140,7 @@ class Column
      */
     public function exists()
     {
-        $this->context->assertTrue(
+        $this->assertTrue(
             $this->table->hasColumn($this->name), "The table column `{$this->name}` does not exist."
         );
 
@@ -154,11 +154,9 @@ class Column
      */
     public function increments()
     {
-        $this->integer()->context->assertTrue(
-            $this->get('autoincrement'), "The column {$this->name} is not auto-incremented."
-        );
-
-        return $this->primary();
+        return $this->integer()
+                    ->assertTrue($this->get('autoincrement'), "The column {$this->name} is not auto-incremented.")
+                    ->primary();
     }
 
     /**
@@ -270,6 +268,20 @@ class Column
         }
 
         throw new \Exception("The database table column assertion {$method} does not exist.");
+    }
+
+    /**
+     * Assert a condition is true alias.
+     *
+     * @param bool $condition
+     * @param string $message
+     * @return $this
+     */
+    protected function assertTrue($condition, $message)
+    {
+        $this->context->assertTrue($condition, $message);
+
+        return $this;
     }
 
     /**
