@@ -2,7 +2,7 @@
 
 #### Test your Laravel Eloquent model's and database schema
 
-This package was inspired by the Ruby on Rails world and the testing framework RSpec. The Ruby on Rails community (for the most part) write test for their model's attributes, relationships, database tables and table columns.
+This package was inspired by the Ruby on Rails world and the testing framework RSpec. The Ruby on Rails community (for the most part) write tests for their models in a way that they check the model's attributes, relationships, database table and columns settings (defaults, nullable, etc.).
 
 ## Table of Contents
 
