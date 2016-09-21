@@ -91,7 +91,7 @@ class Column
         }
 
         $name = $this->getIndexName('foreign');
-        $this->context->assertTrue($this->table->hasForeignKey($name), "The foreign key {$name} does not exist.");
+        $this->assertTrue($this->table->hasForeignKey($name), "The foreign key {$name} does not exist.");
 
         $key = $this->table->getForeignKey($name);
         $onUpdate && $this->context->assertEquals(strtoupper($onUpdate), $key->onUpdate());
@@ -154,9 +154,9 @@ class Column
      */
     public function increments()
     {
-        return $this->integer()
-                    ->assertTrue($this->get('autoincrement'), "The column {$this->name} is not auto-incremented.")
-                    ->primary();
+        $message = "The column {$this->name} is not auto-incremented.";
+
+        return $this->integer()->assertTrue($this->get('autoincrement'), $message)->primary();
     }
 
     /**
@@ -168,11 +168,11 @@ class Column
     {
         $index = $this->getIndexName();
 
-        $this->context->assertTrue(
+        $this->assertTrue(
             $this->table->hasIndex($index), "The {$this->name} column is not indexed."
         );
 
-        $this->context->assertTrue(
+        $this->assertTrue(
             $this->table->getIndex($index)->isSimpleIndex(), "The {$this->name} column is not a simple index."
         );
     }
@@ -199,15 +199,11 @@ class Column
     public function primary()
     {
         $key = $this->tableHasPrimary()->getPrimaryKey();
+        $message = "The column {$this->name} is not a primary key.";
 
-        $this->context->assertTrue(
-            in_array($this->name, $key->getColumns()), "The column {$this->name} is not a primary key."
-        );
-
-        $this->context->assertTrue($key->isPrimary());
-        $this->context->assertTrue($key->isUnique());
-
-        return $this;
+        return $this->assertTrue(in_array($this->name, $key->getColumns()), $message)
+                    ->assertTrue($key->isPrimary())
+                    ->assertTrue($key->isUnique());
     }
 
     /**
@@ -238,12 +234,10 @@ class Column
     protected function assertNullable($negate = false)
     {
         if ($negate) {
-            $this->context->assertTrue($this->get('notnull'),  "The table column `{$this->name}` is nullable");
-        } else {
-            $this->context->assertFalse($this->get('notnull'),  "The table column `{$this->name}` is not nullable");
+            return $this->assertTrue($this->get('notnull'),  "The table column `{$this->name}` is nullable");
         }
 
-        return $this;
+        return $this->assertFalse($this->get('notnull'),  "The table column `{$this->name}` is not nullable");
     }
 
     /**
@@ -271,6 +265,20 @@ class Column
     }
 
     /**
+     * Assert a condition is false alias.
+     *
+     * @param bool $condition
+     * @param string $message
+     * @return $this
+     */
+    protected function assertFalse($condition, $message)
+    {
+        $this->context->assertFalse($condition, $message);
+
+        return $this;
+    }
+
+    /**
      * Assert a condition is true alias.
      *
      * @param bool $condition
@@ -294,7 +302,7 @@ class Column
     protected function assertUniqueIndex($key, $indexes)
     {
         $this->context->assertArrayHasKey($key, $indexes, "The {$this->name} column is not indexed.");
-        $this->context->assertTrue($indexes[$key]->isUnique(), "The {$this->name} is not a unique index.");
+        $this->assertTrue($indexes[$key]->isUnique(), "The {$this->name} is not a unique index.");
     }
 
     /**
@@ -316,7 +324,7 @@ class Column
      */
     protected function tableHasPrimary()
     {
-        $this->context->assertTrue(
+        $this->assertTrue(
             $this->table->hasPrimaryKey(), "The table {$this->table->getName()} does not have a primary key."
         );
 
