@@ -7,7 +7,7 @@ This package was written for a project of mine. It was inspired by the Rails tes
 ## Table of Contents
 
 1. [Installation](#installation)
-2. [What can be tested](#What-can-be-tested)
+2. [What can be tested](#what-can-be-tested)
 3. [Documentation](#documentation)
 	1. [Properties](#test-class-properties)
 	2. [Table Testing Methods](#database-testing-methods)
