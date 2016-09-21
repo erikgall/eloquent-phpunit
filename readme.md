@@ -6,18 +6,19 @@ This package was written for a project of mine. It was inspired by the Rails tes
 
 ## Table of Contents
 
-1. [Installation](#installation)
-2. [What can be tested](#what-can-be-tested)
-3. [Documentation](#documentation)
+1. [What can be tested](#what-can-be-tested)
+2. [Installation](#installation)
+3. [Requirements](#requirements)
+4. [Documentation](#documentation)
 	1. [Properties](#test-class-properties)
 	2. [Table Testing Methods](#database-testing-methods)
 	3. [Model Testing Methods](#model-testing-methods)
-4. [Example Model Test Class](#example-model-test)
-5. [Contributing](#contributing)
-6. [Version Release History](#history)
-7. [Projects using Eloquent-PHPUnit](#projects-using-eloquent-phpunit)
-8. [Author](#author)
-9. [License](#license)
+5. [Example Model Test Class](#example-model-test)
+6. [Contributing](#contributing)
+7. [Version Release History](#history)
+8. [Projects using Eloquent-PHPUnit](#projects-using-eloquent-phpunit)
+9. [Author](#author)
+10. [License](#license)
 
 ## What can be tested
 
@@ -53,6 +54,9 @@ composer require erikgall/eloquent-phpunit
 }
 ```
 
+## Requirements
+
+This package requires `PHP 5.6` or `PHP 7+`. It has been tested and used with `Laravel 5.2` and `Laravel 5.3`. There should not be a problem using it with `Laravel 5.0/1` but it has not been tested or confirmed 100%.
 
 ## Documentation
 
