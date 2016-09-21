@@ -4,6 +4,23 @@
 
 This package was written for a project of mine. It was inspired by the Rails testing framework RSpec and how Rails world tests their models and database. So what can you test? You can test the following in your Laravel Eloquent models:
 
+## Table of Contents
+
+1. [Installation](#installation)
+2. [What can be tested](#What-can-be-tested)
+3. [Documentation](#documentation)
+	1. [Properties](#test-class-properties)
+	2. [Table Testing Methods](#database-testing-methods)
+	3. [Model Testing Methods](#model-testing-methods)
+4. [Example Model Test Class](#example-model-test)
+5. [Contributing](#contributing)
+6. [Version Release History](#history)
+7. [Projects using Eloquent-PHPUnit](#projects-using-eloquent-phpunit)
+8. [Author](#author)
+9. [License](#license)
+
+## What can be tested
+
 - Casted attribute array
 - Fillable attribute array
 - Hidden attribute array
@@ -23,12 +40,99 @@ You can also test your database tables such as:
 
 ## Installation
 
-The easiest way to install is through composer using the terminal: 
+1. The easiest way to use/install this package is by using composer in your terminal:
 ```
 composer require erikgall/eloquent-phpunit
 ```
+2. Or you can add the following line to your `require-dev` dependencies in your `composer.json` file
+```json
+{
+	"require-dev": {
+		"erikgall/eloquent-phpunit": "~1.0"
+	}
+}
+```
 
-## Usage
+
+## Documentation
+
+### Test Class Properties
+
+| Name | Type | Required | Default  | Description |
+|---------------|-------------------------------------|----------|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| defaultSeeder | string | false | DatabaseSeeder | The database seeder class name that calls the rest of your seeders (only used if seedDatabase property is not set to false). |
+| data | array | false | - | Do not overwrite this property. It is used to store the model's data. You can access this data by calling any of the data array's keys like a class property ($this->fillable, $this->casts, $this->table) |
+| model | string | true | - | The FQCN of the eloquent model that is to be tested (ex. App\User) |
+| seedDatabase | boolean | false | true | Should the database be seeded before each test. If you are not running tests that require data in the database, you should set this to false to speed up your tests. |
+| seeders | array | false | - | If you wish to only call certain seeder classes you can set them here (ex. ['UsersTableSeeder', 'PostsTableSeeder'] (only used if seedDatabase property is not set to false). |
+| subject | Model** | false | -  | This is the instance of the model class that is being tested. When setting up a test, the EloquentTestCase class initializes a new empty model. |
+
+**These settings are only used if the seedDatabase property is not set to false (the default value for the seedDatabase property is true).*
+
+** The subject property is an instance of \Illuminate\Database\Eloquent\Model.
+
+### Database Testing Methods
+
+#### \EGALL\EloquentPHPUnit\Database\Table
+
+Get the `EGALL\EloquentPHPUnit\Database\Table` class instance by calling the table property.
+
+**Usage:**
+
+```php
+	$this->table
+```
+
+#### Table methods
+---
+
+##### column($columnName)
+
+Initializes a new `EGALL\EloquentPHPUnit\Database\Column` class instance for table's column name that is passed in.
+
+**Usage:**
+
+```php
+	$this->table->column('column_name')
+```
+
+Returns: `EGALL\EloquentPHPUnit\Database\Column`
+
+--- 
+
+##### exists()
+
+Assert that the table exists in the database.
+
+**Usage:**
+
+```php
+	$this->table->exists();
+```
+
+**Returns:** `EGALL\EloquentPHPUnit\Database\Table`
+
+---
+
+##### hasTimestamps()
+
+Assert that the table has timestamp columns.
+
+**Usage:**
+
+```php
+	$this->$table->hasTimestamps();
+```
+
+**Returns:** `EGALL\EloquentPHPUnit\Database\Table`
+
+--- 
+
+### Model Testing Methods
+
+// TODO
+
+## Example Model Test
 
 ```php
 Class UserModelTest extends \EGALL\EloquentPHPUnit\EloquentTestCase {
@@ -104,7 +208,7 @@ Class UserModelTest extends \EGALL\EloquentPHPUnit\EloquentTestCase {
 
 - [Canvas ★765](https://github.com/austintoddj/canvas): A minimal blogging application built on top of Laravel 5 by [@austintoddj](https://github.com/austintoddj)
 
-## Credits
+## Author
 
 - [Erik Galloway](https://github.com/erikgall)
 
