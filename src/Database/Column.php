@@ -191,7 +191,7 @@ class Column
      */
     public function nullable()
     {
-        $this->context->assertFalse($this->get('notnull'), "The table column `{$this->name}` is not nullable.");
+        $this->context->assertTrue(!$this->get('notnull'), "The table column `{$this->name}` is not nullable");
 
         return $this;
     }
@@ -241,16 +241,20 @@ class Column
 
     public function __call($method, $args)
     {
+        if (method_exists($this, $method)) {
+            $this->$method($args);
+        }
+
         if (array_key_exists($method, $this->types)) {
             return $this->ofType($this->types[$method]);
         }
 
-        if ($method == 'default') {
+        if (str_contains($method, 'default')) {
             return $this->defaults($args[0]);
         }
 
-        if (method_exists($this, $method)) {
-            $this->$method($args);
+        if (str_contains($method, 'null')) {
+            return $this->callNullable($method);
         }
 
         throw new \Exception("The method {$method} does not exist.");
@@ -266,6 +270,19 @@ class Column
     {
         $this->context->assertArrayHasKey($key, $indexes, "The {$this->name} column is not indexed.");
         $this->context->assertTrue($indexes[$key]->isUnique(), "The {$this->name} is not a unique index.");
+    }
+
+    /**
+     * Call the notNullable or nullable method.
+     *
+     * @param string $method
+     * @return $this
+     */
+    protected function callNullable($method)
+    {
+        $nullable = str_contains($method, 'not') ? 'notNullable' : 'nullable';
+
+        return $this->$nullable();
     }
 
     /**
@@ -287,7 +304,7 @@ class Column
      */
     protected function getTypeMessage($type)
     {
-        return "The column {$this->name} is of type {$this->get('type')} but expected {$type}";
+        return "The {$this->name} column is expected to be of type {$type} but is of type {$this->get('type')}";
     }
 
     /**
