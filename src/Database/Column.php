@@ -46,47 +46,31 @@ class Column
     protected $name;
 
     /**
+     * The column types array.
+     *
+     * @var array
+     */
+    protected $types = [
+        'boolean'  => BooleanType::class,
+        'date'     => DateType::class,
+        'dateTime' => DateTimeType::class,
+        'integer'  => IntegerType::class,
+        'string'   => StringType::class,
+        'text'     => TextType::class,
+    ];
+
+    /**
      * Table column test case constructor.
      * 
-     * @param EloquentTestCase $context
-     * @param TableTestCase    $table
-     * @param string           $name
+     * @param \EGALL\EloquentPHPUnit\EloquentTestCase $context
+     * @param \Doctrine\DBAL\Schema\Table $table
+     * @param string $name
      */
     public function __construct($context, $table, $name)
     {
         $this->context = $context;
         $this->table = $table;
         $this->name = $name;
-    }
-
-    /**
-     * Assert the column is of boolean type.
-     * 
-     * @return $this
-     */
-    public function boolean()
-    {
-        return $this->ofType(BooleanType::class);
-    }
-
-    /**
-     * Assert the column is of type date.
-     * 
-     * @return $this
-     */
-    public function date()
-    {
-        return $this->ofType(DateType::class);
-    }
-
-    /**
-     * Assert the column is of type dateTime.
-     * 
-     * @return $this
-     */
-    public function dateTime()
-    {
-        return $this->ofType(DateTimeType::class);
     }
 
     /**
@@ -190,16 +174,6 @@ class Column
     }
 
     /**
-     * Assert that the column is of type integer.
-     * 
-     * @return $this
-     */
-    public function integer()
-    {
-        return $this->ofType(IntegerType::class);
-    }
-
-    /**
      * Assert that the column is not nullable.
      * 
      * @return $this
@@ -241,36 +215,18 @@ class Column
      */
     public function primary()
     {
-        $noPrimaryMessage = "The table {$this->table->getName()} does not have a primary key.";
-        $this->context->assertTrue($this->table->hasPrimaryKey(), $noPrimaryMessage);
+        $this->tableHasPrimaryKey();
 
         $key = $this->table->getPrimaryKey();
 
-        $this->context->assertTrue(in_array($this->name, $key->getColumns()), "The column {$this->name} is not a primary key.");
+        $this->context->assertTrue(
+            in_array($this->name, $key->getColumns()), "The column {$this->name} is not a primary key."
+        );
+
         $this->context->assertTrue($key->isPrimary());
         $this->context->assertTrue($key->isUnique());
 
         return $this;
-    }
-
-    /**
-     * Assert the column is a string/varchar type.
-     * 
-     * @return $this
-     */
-    public function string()
-    {
-        return $this->ofType(StringType::class);
-    }
-
-    /**
-     * Assert the column is a text field.
-     * 
-     * @return $this
-     */
-    public function text()
-    {
-        return $this->ofType(TextType::class);
     }
 
     /**
@@ -280,17 +236,70 @@ class Column
      */
     public function unique()
     {
-        $key = $this->getIndexName('unique');
-
-        $notSetMessage = "The unique index {$key} is not an index on the table {$this->table->getName()}";
-        $notUniqueMessage = "The column {$this->name} is not unique in the database.";
-
-        $this->context->assertTrue(array_key_exists($key, $this->table->getIndexes()), $notSetMessage);
-        $this->context->assertTrue($this->table->getIndexes()[$key]->isUnique(), $notUniqueMessage);
+        $this->assertUniqueIndex($this->getIndexName('unique'), $this->table->getIndexes());
     }
 
+    public function __call($method, $args)
+    {
+        if (array_key_exists($method, $this->types)) {
+            return $this->ofType($this->types[$method]);
+        }
+
+        if ($method == 'default') {
+            $this->defaults($args[0]);
+        }
+
+        if (method_exists($this, $method)) {
+            $this->$method($args);
+        }
+
+        throw new \Exception("The method {$method} does not exist.");
+    }
+    /**
+     * Assert a key is a unique index.
+     *
+     * @param string $key
+     * @param array $indexes
+     * @return void
+     */
+    protected function assertUniqueIndex($key, $indexes)
+    {
+        $this->context->assertArrayHasKey($key, $indexes, "The {$this->name} column is not indexed.");
+        $this->context->assertTrue($indexes[$key]->isUnique(), "The {$this->name} is not a unique index.");
+    }
+
+    /**
+     * Get the column's index key/name.
+     *
+     * @param string $suffix
+     * @return string
+     */
     protected function getIndexName($suffix = 'index')
     {
         return "{$this->table->getName()}_{$this->name}_{$suffix}";
+    }
+
+    /**
+     * Get the column type assertion failure message.
+     *
+     * @param string $type
+     * @return string
+     */
+    protected function getTypeMessage($type)
+    {
+        return "The column {$this->name} is of type {$this->get('type')} but expected {$type}";
+    }
+
+    /**
+     * Assert the table has a primary key.
+     *
+     * @param  $table
+     * @return void
+     */
+    protected function tableHasPrimaryKey()
+    {
+        $this->context->assertTrue(
+            $this->table->hasPrimaryKey(), "The table {$this->table->getName()} does not have a primary key."
+        );
     }
 }
