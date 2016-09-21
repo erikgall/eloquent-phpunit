@@ -253,7 +253,7 @@ class Column
             return $this->defaults($args[0]);
         }
 
-        if (str_contains($method, 'null')) {
+        if (str_contains($method, ['null', 'Null'])) {
             return $this->callNullable($method);
         }
 
