@@ -268,10 +268,10 @@ class Column
      * Assert a condition is false alias.
      *
      * @param bool $condition
-     * @param string $message
+     * @param string|null $message
      * @return $this
      */
-    protected function assertFalse($condition, $message)
+    protected function assertFalse($condition, $message = null)
     {
         $this->context->assertFalse($condition, $message);
 
@@ -282,10 +282,10 @@ class Column
      * Assert a condition is true alias.
      *
      * @param bool $condition
-     * @param string $message
+     * @param string|null $message
      * @return $this
      */
-    protected function assertTrue($condition, $message)
+    protected function assertTrue($condition, $message = null)
     {
         $this->context->assertTrue($condition, $message);
 
