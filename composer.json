@@ -1,16 +1,17 @@
 {
     "name": "erikgall/eloquent-phpunit",
-    "description": "Test Eloquent models, database tables, relationships, etc. using PHPUnit.",
+    "description": "Test Eloquent models, database schemas & tables, relationships/foreign keys using PHPUnit.",
     "keywords": ["laravel", "eloquent", "model", "phpunit", "database-testing", "eloquent-test"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Erik Galloway",
-            "email": "erik@mybarnapp.com"
+            "email": "erik@fliplearning.com"
         }
     ],
     "require": {
     	"laravel/framework": "^5.2|^5.3",
-      "doctrine/dbal": "^2.5"
+        "doctrine/dbal": "^2.5"
     },
     "autoload": {
         "psr-4": {
