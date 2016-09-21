@@ -246,7 +246,7 @@ class Column
         }
 
         if ($method == 'default') {
-            $this->defaults($args[0]);
+            return $this->defaults($args[0]);
         }
 
         if (method_exists($this, $method)) {
