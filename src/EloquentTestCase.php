@@ -144,7 +144,7 @@ class EloquentTestCase extends LaravelTestCase
      */
     protected function setTable()
     {
-        if (!property_exists($this, 'tableName')) {
+        if (! property_exists($this, 'tableName')) {
             $this->tableName = $this->subject->getTable();
         }
     }
