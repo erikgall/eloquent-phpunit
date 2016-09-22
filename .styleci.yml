@@ -1,3 +1,4 @@
+presets: laravel
 risky: true
 enabled:
   - align_double_arrow
