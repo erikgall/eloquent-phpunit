@@ -10,14 +10,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Relationship test helper trait.
- * 
+ *
  * @author Erik Galloway <erik@mybarnapp.com>
  */
 trait RelationshipTestHelper
 {
     /**
      * Assert the subject has a relationship with another model.
-     * 
+     *
      * @param  string $relationship
      * @param  string $model
      * @param  string $method
@@ -33,7 +33,7 @@ trait RelationshipTestHelper
 
     /**
      * Assert the model has a belongs to relationship.
-     * 
+     *
      * @param  string $model
      * @param  string|null $name
      * @return $this
@@ -61,7 +61,7 @@ trait RelationshipTestHelper
 
     /**
      * Assert the model has a has many relationship.
-     * 
+     *
      * @param  string $model
      * @param  string|null $name
      * @return bool
@@ -75,7 +75,7 @@ trait RelationshipTestHelper
 
     /**
      * Assert the model has a morphs to relationship.
-     * 
+     *
      * @param  string $method
      * @param  string|null
      * @return $this
@@ -90,7 +90,7 @@ trait RelationshipTestHelper
 
     /**
      * Assert the model has a morph many relationship.
-     * 
+     *
      * @param  string $method
      * @param  string|null
      * @return $this
@@ -104,7 +104,7 @@ trait RelationshipTestHelper
 
     /**
      * Get a relationship's method name.
-     * 
+     *
      * @param  string $model
      * @param  bool $singular
      * @return string

@@ -12,7 +12,7 @@ use Doctrine\DBAL\Types\DateTimeType;
 
 /**
  * Database table column test case.
- * 
+ *
  * @author Erik Galloway <erik@mybarnapp.com>
  */
 class Column
@@ -61,7 +61,7 @@ class Column
 
     /**
      * Table column test case constructor.
-     * 
+     *
      * @param \EGALL\EloquentPHPUnit\EloquentTestCase $context
      * @param \Doctrine\DBAL\Schema\Table $table
      * @param string $name
@@ -75,7 +75,7 @@ class Column
 
     /**
      * Assert that the table has a foreign key relationship.
-     * 
+     *
      * @param  string $table
      * @param  string $column
      * @param  string $onUpdate
@@ -105,7 +105,7 @@ class Column
 
     /**
      * Get a data key by name.
-     * 
+     *
      * @param  string $key
      * @return mixed
      */
@@ -120,7 +120,7 @@ class Column
 
     /**
      * Test the default value.
-     * 
+     *
      * @param  mixed
      * @return $this
      */
@@ -135,7 +135,7 @@ class Column
 
     /**
      * Test that a column exists.
-     * 
+     *
      * @return $this
      */
     public function exists()
@@ -161,7 +161,7 @@ class Column
 
     /**
      * Assert that the column is indexed.
-     * 
+     *
      * @return $this
      */
     public function index()
@@ -179,7 +179,7 @@ class Column
 
     /**
      * Assert a column is of a certain type.
-     * 
+     *
      * @return $this
      */
     public function ofType($type)
@@ -193,7 +193,7 @@ class Column
 
     /**
      * Assert that the column is a primary key.
-     * 
+     *
      * @return $this
      */
     public function primary()
@@ -208,7 +208,7 @@ class Column
 
     /**
      * Assert that the column has a unique index.
-     * 
+     *
      * @return $this
      */
     public function unique()
@@ -234,10 +234,10 @@ class Column
     protected function assertNullable($negate = false)
     {
         if ($negate) {
-            return $this->assertTrue($this->get('notnull'),  "The table column `{$this->name}` is nullable");
+            return $this->assertTrue($this->get('notnull'), "The table column `{$this->name}` is nullable");
         }
 
-        return $this->assertFalse($this->get('notnull'),  "The table column `{$this->name}` is not nullable");
+        return $this->assertFalse($this->get('notnull'), "The table column `{$this->name}` is not nullable");
     }
 
     /**
