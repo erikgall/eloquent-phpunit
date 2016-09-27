@@ -10,6 +10,7 @@ use Doctrine\DBAL\Types\BooleanType;
 use Doctrine\DBAL\Types\IntegerType;
 use Doctrine\DBAL\Types\DateTimeType;
 use Doctrine\DBAL\Types\JsonArrayType;
+use EGALL\EloquentPHPUnit\Database\Types\JsonbType;
 
 /**
  * Database table column test case.
@@ -56,7 +57,7 @@ class Column
         'date'      => DateType::class,
         'dateTime'  => DateTimeType::class,
         'json'      => JsonArrayType::class,
-        'jsonb'     => JsonArrayType::class,
+        'jsonb'     => JsonbType::class,
         'integer'   => IntegerType::class,
         'string'    => StringType::class,
         'text'      => TextType::class,
