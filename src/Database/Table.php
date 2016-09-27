@@ -4,6 +4,8 @@ namespace EGALL\EloquentPHPUnit\Database;
 
 use DB;
 use Schema;
+use Doctrine\DBAL\Types\Type;
+use EGALL\EloquentPHPUnit\Database\Types\JsonbType;
 
 /**
  * Database table test case class.
@@ -43,6 +45,7 @@ class Table
     {
         $this->context = $context;
         $this->name = $name;
+        $this->addJsonbType()
     }
 
     /**
@@ -108,9 +111,23 @@ class Table
 
     /**
      * Set the table details instance.
+     * 
+     * @return void
      */
     protected function setTable()
     {
         $this->table = DB::getDoctrineSchemaManager()->listTableDetails($this->name);
+    }
+
+    /**
+     * Register the jsonb database column.
+     * 
+     * @return void
+     */
+    protected function addJsonbType() {
+        if (!Type::hasType('jsonb')) {
+            Type::addType('jsonb', JsonbType::class);
+            DB::getDoctrineConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('JSONB', 'jsonb');
+        }
     }
 }
