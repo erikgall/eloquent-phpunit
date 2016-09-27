@@ -45,7 +45,7 @@ class Table
     {
         $this->context = $context;
         $this->name = $name;
-        $this->addJsonbType()
+        $this->addJsonbType();
     }
 
     /**
