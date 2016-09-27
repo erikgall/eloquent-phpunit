@@ -52,13 +52,14 @@ class Column
      * @var array
      */
     protected $types = [
-        'boolean'  => BooleanType::class,
-        'date'     => DateType::class,
-        'dateTime' => DateTimeType::class,
-        'json'     => JsonArrayType::class,
-        'integer'  => IntegerType::class,
-        'string'   => StringType::class,
-        'text'     => TextType::class,
+        'boolean'   => BooleanType::class,
+        'date'      => DateType::class,
+        'dateTime'  => DateTimeType::class,
+        'json'      => JsonArrayType::class,
+        'jsonb'     => JsonArrayType::class,
+        'integer'   => IntegerType::class,
+        'string'    => StringType::class,
+        'text'      => TextType::class,
     ];
 
     /**
