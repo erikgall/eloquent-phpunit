@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\StringType;
 use Doctrine\DBAL\Types\BooleanType;
 use Doctrine\DBAL\Types\IntegerType;
 use Doctrine\DBAL\Types\DateTimeType;
+use Doctrine\DBAL\Types\JsonArrayType;
 
 /**
  * Database table column test case.
@@ -54,6 +55,7 @@ class Column
         'boolean'  => BooleanType::class,
         'date'     => DateType::class,
         'dateTime' => DateTimeType::class,
+        'json'     => JsonArrayType::class,
         'integer'  => IntegerType::class,
         'string'   => StringType::class,
         'text'     => TextType::class,
