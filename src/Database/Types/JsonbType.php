@@ -5,7 +5,7 @@ namespace EGALL\EloquentPHPUnit\Database\Types;
 use Doctrine\DBAL\Types\JsonArrayType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
-/**	
+/**
  * Jsonb database column type.
  *
  * @author Erik Galloway <erik@fliplearning.com>

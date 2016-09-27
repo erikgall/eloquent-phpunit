@@ -111,7 +111,7 @@ class Table
 
     /**
      * Set the table details instance.
-     * 
+     *
      * @return void
      */
     protected function setTable()
@@ -121,11 +121,12 @@ class Table
 
     /**
      * Register the jsonb database column.
-     * 
+     *
      * @return void
      */
-    protected function addJsonbType() {
-        if (!Type::hasType('jsonb')) {
+    protected function addJsonbType()
+    {
+        if (! Type::hasType('jsonb')) {
             Type::addType('jsonb', JsonbType::class);
             DB::getDoctrineConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('JSONB', 'jsonb');
         }
