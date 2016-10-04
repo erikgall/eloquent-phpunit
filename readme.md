@@ -254,7 +254,7 @@ Class UserModelTest extends \EGALL\EloquentPHPUnit\EloquentTestCase {
 
 ## Projects using Eloquent-PHPUnit
 
-- [Canvas ★765](https://github.com/austintoddj/canvas): A minimal blogging application built on top of Laravel 5 by [@austintoddj](https://github.com/austintoddj)
+- [Canvas ★803](https://github.com/austintoddj/canvas): A simple, powerful blog publishing platform built on top of Laravel 5 by [@austintoddj](https://github.com/austintoddj)
 
 ## Author
 
