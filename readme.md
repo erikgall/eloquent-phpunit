@@ -131,7 +131,7 @@ Assert that the table has timestamp columns.
 **Usage:**
 
 ```php
-	$this->$table->hasTimestamps();
+	$this->table->hasTimestamps();
 ```
 
 **Returns:** `EGALL\EloquentPHPUnit\Database\Table`
