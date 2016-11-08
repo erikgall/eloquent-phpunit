@@ -2,6 +2,7 @@
 
 namespace EGALL\EloquentPHPUnit;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -70,6 +71,20 @@ trait RelationshipTestHelper
     {
         return $this->assertHasRelationship(
             HasMany::class, $model, $name ?: $this->getRelationshipMethodName($model, false)
+        );
+    }
+    
+    /**
+     * Assert the model has a has one relationship.
+     *
+     * @param  string $model
+     * @param  string|null $name
+     * @return bool
+     */
+    public function hasOne($model, $name = null)
+    {
+        return $this->assertHasRelationship(
+            HasOne::class, $model, $name ?: $this->getRelationshipMethodName($model, false)
         );
     }
 
