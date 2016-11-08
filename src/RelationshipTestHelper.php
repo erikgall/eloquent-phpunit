@@ -72,6 +72,20 @@ trait RelationshipTestHelper
             HasMany::class, $model, $name ?: $this->getRelationshipMethodName($model, false)
         );
     }
+    
+    /**
+     * Assert the model has a has one relationship.
+     *
+     * @param  string $model
+     * @param  string|null $name
+     * @return bool
+     */
+    public function hasOne($model, $name = null)
+    {
+        return $this->assertHasRelationship(
+            HasOne::class, $model, $name ?: $this->getRelationshipMethodName($model, false)
+        );
+    }
 
     /**
      * Assert the model has a morphs to relationship.
