@@ -2,7 +2,6 @@ preset: laravel
 risky: true
 enabled:
   - align_double_arrow
-  - blankline_after_open_tag
   - braces
   - concat_without_spaces
   - double_arrow_multiline_whitespaces
