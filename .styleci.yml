@@ -2,6 +2,7 @@ preset: laravel
 risky: true
 enabled:
   - align_double_arrow
+  - blankline_after_open_tag
   - braces
   - concat_without_spaces
   - double_arrow_multiline_whitespaces
@@ -31,7 +32,6 @@ enabled:
   - object_operator
   - operators_spaces
   - parenthesis
-  - phpdoc_indent
   - phpdoc_inline_tag
   - phpdoc_no_access
   - phpdoc_no_package
