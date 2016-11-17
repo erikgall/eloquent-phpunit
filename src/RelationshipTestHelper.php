@@ -73,7 +73,7 @@ trait RelationshipTestHelper
             HasMany::class, $model, $name ?: $this->getRelationshipMethodName($model, false)
         );
     }
-    
+
     /**
      * Assert the model has a has one relationship.
      *
