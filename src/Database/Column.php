@@ -9,6 +9,8 @@ use Doctrine\DBAL\Types\StringType;
 use Doctrine\DBAL\Types\BooleanType;
 use Doctrine\DBAL\Types\IntegerType;
 use Doctrine\DBAL\Types\DateTimeType;
+use Doctrine\DBAL\Types\JsonArrayType;
+use EGALL\EloquentPHPUnit\Database\Types\JsonbType;
 
 /**
  * Database table column test case.
@@ -51,12 +53,14 @@ class Column
      * @var array
      */
     protected $types = [
-        'boolean'  => BooleanType::class,
-        'date'     => DateType::class,
-        'dateTime' => DateTimeType::class,
-        'integer'  => IntegerType::class,
-        'string'   => StringType::class,
-        'text'     => TextType::class,
+        'boolean'   => BooleanType::class,
+        'date'      => DateType::class,
+        'dateTime'  => DateTimeType::class,
+        'json'      => JsonArrayType::class,
+        'jsonb'     => JsonbType::class,
+        'integer'   => IntegerType::class,
+        'string'    => StringType::class,
+        'text'      => TextType::class,
     ];
 
     /**
