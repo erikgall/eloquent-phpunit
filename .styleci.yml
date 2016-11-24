@@ -30,7 +30,6 @@ enabled:
   - no_blank_lines_after_class_opening
   - no_empty_lines_after_phpdocs
   - object_operator
-  - operators_spaces
   - parenthesis
   - phpdoc_inline_tag
   - phpdoc_no_access
