@@ -74,7 +74,7 @@ This package requires `PHP 5.6` or `PHP 7+`. It has been tested and used with `L
 | data | array | false | - | Do not overwrite this property. It is used to store the model's data. You can access this data by calling any of the data array's keys like a class property ($this->fillable, $this->casts, $this->table) |
 | model | string | true | - | The FQCN of the eloquent model that is to be tested (ex. App\User) |
 | seedDatabase | boolean | false | true | Should the database be seeded before each test. If you are not running tests that require data in the database, you should set this to false to speed up your tests. |
-| seeders | array | false | - | If you wish to only call certain seeder classes you can set them here (ex. ['UsersTableSeeder', 'PostsTableSeeder'] (only used if seedDatabase property is not set to false). |
+| seeders | array | false | - | If you wish to only call certain seeder classes you can set them here (ex. `['UsersTableSeeder', 'PostsTableSeeder']` (only used if seedDatabase property is not set to false). |
 | subject | Model** | false | -  | This is the instance of the model class that is being tested. When setting up a test, the EloquentTestCase class initializes a new empty model. |
 
 **These settings are only used if the seedDatabase property is not set to false (the default value for the seedDatabase property is true).*
